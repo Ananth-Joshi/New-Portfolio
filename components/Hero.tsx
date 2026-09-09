@@ -4,7 +4,13 @@ import { motion } from 'motion/react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function Hero() {
+export default function Hero({ data }: { data?: any }) {
+  const name = data?.name || 'Alex';
+  const role = data?.role || 'Software Engineer';
+  const description = data?.description || 'I build robust software systems with a focus on clean architecture, beautiful interfaces, and calm user experiences.';
+  const image_url = data?.image_url || 'https://picsum.photos/seed/hero/800/800';
+  const resume_url = data?.resume_url || '/resume.pdf';
+
   return (
     <section className="pt-32 pb-20 md:pt-48 md:pb-32 px-6 md:px-12 max-w-7xl mx-auto flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-24">
       
@@ -17,12 +23,12 @@ export default function Hero() {
         >
           <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none mb-6">
             Hi, I&apos;m <br className="hidden md:block"/> 
-            <span className="text-accent-orange italic">Ananth</span>
+            <span className="text-accent-orange italic">{name}</span>
             <br />
-            Software Engineer
+            {role}
           </h1>
           <p className="text-lg md:text-xl text-white/70 max-w-md mb-10 leading-relaxed">
-            I build robust software systems with a focus on clean architecture, beautiful interfaces, and calm user experiences.
+            {description}
           </p>
           
           <div className="flex items-center gap-4">
@@ -34,7 +40,7 @@ export default function Hero() {
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </Link>
             <a 
-              href="/resume.pdf" 
+              href={resume_url} 
               className="px-6 py-3 border border-white/20 font-medium rounded-full hover:border-foreground transition-colors"
             >
               Resume
@@ -64,8 +70,8 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <Image 
-              src="https://picsum.photos/seed/hero/800/800" 
-              alt="Abstract work visual" 
+              src={image_url} 
+              alt="Hero visual" 
               fill
               className="object-cover"
               referrerPolicy="no-referrer"

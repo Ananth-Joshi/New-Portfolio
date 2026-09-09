@@ -1,9 +1,10 @@
 'use client';
 
-import { experiences } from '@/data/experience';
 import { motion } from 'motion/react';
 
-export default function ExperienceSection() {
+export default function ExperienceSection({ experiences = [] }: { experiences?: any[] }) {
+  if (!experiences.length) return null;
+
   return (
     <section id="experience" className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
       <div className="mb-20">
@@ -13,7 +14,7 @@ export default function ExperienceSection() {
       <div className="relative border-l border-white/10 ml-3 md:ml-6">
         {experiences.map((exp, index) => (
           <motion.div 
-            key={index}
+            key={exp.id || index}
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
@@ -26,12 +27,19 @@ export default function ExperienceSection() {
             <div className="flex flex-col md:flex-row gap-4 md:gap-16">
               {/* Year Column */}
               <div className="w-full md:w-1/3 lg:w-1/4">
-                <span className="text-xl font-serif text-white/40 group-hover:text-accent-green transition-colors">{exp.year}</span>
+                <span className="text-xl font-serif text-white/40 group-hover:text-accent-green transition-colors">
+                  {exp.start_date} {exp.end_date ? `— ${exp.end_date}` : ''}
+                </span>
               </div>
               
               {/* Details Column */}
               <div className="w-full md:w-2/3 lg:w-3/4 flex flex-col">
-                <h3 className="text-2xl font-medium mb-1">{exp.company}</h3>
+                <div className="flex items-center gap-4 mb-1">
+                  {exp.company_logo && (
+                    <img src={exp.company_logo} alt={exp.company} className="h-8 w-8 object-contain rounded" />
+                  )}
+                  <h3 className="text-2xl font-medium">{exp.company}</h3>
+                </div>
                 <span className="text-accent-green font-medium mb-6">{exp.role}</span>
                 <p className="text-white/70 text-lg leading-relaxed max-w-2xl">
                   {exp.description}

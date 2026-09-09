@@ -1,10 +1,18 @@
 'use client';
 
-import { skills } from '@/data/skills';
 import { motion } from 'motion/react';
-import Image from 'next/image';
+import * as LucideIcons from 'lucide-react';
 
-export default function SkillsSection() {
+export default function SkillsSection({ technologies = [] }: { technologies?: any[] }) {
+  if (!technologies.length) return null;
+
+  // Group technologies by category
+  const categories = technologies.reduce((acc, tech) => {
+    if (!acc[tech.category]) acc[tech.category] = [];
+    acc[tech.category].push(tech);
+    return acc;
+  }, {} as Record<string, any[]>);
+
   return (
     <section id="skills" className="py-32 px-6 md:px-12 bg-white/[0.02] my-12 border-y border-white/10">
       <div className="max-w-7xl mx-auto">
@@ -21,7 +29,7 @@ export default function SkillsSection() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-20">
-          {Object.entries(skills).map(([category, items], index) => (
+          {Object.entries<any[]>(categories).map(([category, items], index) => (
             <motion.div 
               key={category}
               initial={{ opacity: 0, y: 20 }}
@@ -35,24 +43,22 @@ export default function SkillsSection() {
               </h3>
               
               <div className="flex flex-wrap gap-4">
-                {items.map((skill) => (
-                  <div 
-                    key={skill.name} 
-                    className="flex items-center gap-3 bg-white/5 border border-white/10 px-5 py-3 rounded-2xl hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:-translate-y-1 group"
-                  >
-                    <div className="relative w-6 h-6 opacity-70 group-hover:opacity-100 transition-opacity">
-                      <Image 
-                        src={`https://cdn.simpleicons.org/${skill.iconSlug}/white`} 
-                        alt={skill.name}
-                        fill
-                        className="object-contain"
-                        unoptimized
-                        referrerPolicy="no-referrer"
-                      />
+                {items.map((skill: any) => {
+                  // Attempt to find the lucide icon by name
+                  const IconComponent = skill.icon_name && (LucideIcons as any)[skill.icon_name] 
+                    ? (LucideIcons as any)[skill.icon_name] 
+                    : LucideIcons.Code; // Fallback icon
+
+                  return (
+                    <div 
+                      key={skill.id} 
+                      className="flex items-center gap-3 bg-white/5 border border-white/10 px-5 py-3 rounded-2xl hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:-translate-y-1 group"
+                    >
+                      <IconComponent className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+                      <span className="font-medium text-white/80 group-hover:text-white transition-colors">{skill.name}</span>
                     </div>
-                    <span className="font-medium text-white/80 group-hover:text-white transition-colors">{skill.name}</span>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             </motion.div>
           ))}

@@ -1,12 +1,11 @@
 'use client';
 
-import { certifications } from '@/data/certifications';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'motion/react';
 
-export default function CertificationsSection() {
-  const previewCerts = certifications.slice(0, 3);
+export default function CertificationsSection({ certificates = [] }: { certificates?: any[] }) {
+  if (!certificates.length) return null;
 
   return (
     <section id="certifications" className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
@@ -26,7 +25,7 @@ export default function CertificationsSection() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {previewCerts.map((cert, index) => (
+        {certificates.map((cert, index) => (
           <motion.div
             key={cert.id}
             initial={{ opacity: 0, y: 20 }}
@@ -35,18 +34,22 @@ export default function CertificationsSection() {
             transition={{ delay: index * 0.1 }}
           >
             <Link
-              href="/certificates"
+              href={cert.certificate_url || "/certificates"}
               className="group block"
             >
               <div className="bg-white/5 border border-white/10 p-3 pb-8 rounded-lg shadow-sm group-hover:shadow-xl group-hover:-translate-y-1 transition-all duration-300">
                 <div className="relative w-full aspect-[4/3] rounded overflow-hidden mb-6 bg-white/[0.02]">
-                  <Image
-                    src={cert.image}
-                    alt={cert.name}
-                    fill
-                    className="object-cover"
-                    referrerPolicy="no-referrer"
-                  />
+                  {cert.image_url ? (
+                    <Image
+                      src={cert.image_url}
+                      alt={cert.name}
+                      fill
+                      className="object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-white/20">No Image</div>
+                  )}
                 </div>
                 <div className="px-4">
                   <h3 className="text-lg font-medium mb-1 line-clamp-2">{cert.name}</h3>

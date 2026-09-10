@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
+import { cookies } from 'next/headers'
 import { deleteStorageFile } from '@/lib/storage-helper'
 
 export async function updateHero(formData: FormData) {
@@ -69,6 +70,9 @@ export async function updateHero(formData: FormData) {
   if (resume_url !== undefined) updates.resume_url = resume_url
 
   await supabase.from('hero').update(updates).eq('id', 1)
+
+  const cookieStore = await cookies()
+  cookieStore.set('flash-toast', 'Hero section updated successfully!', { path: '/', httpOnly: false })
   
   revalidatePath('/')
   revalidatePath('/admin/hero')

@@ -2,14 +2,27 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { deleteStorageFile } from '@/lib/storage-helper'
 
 export async function deleteExperience(formData: FormData) {
   const id = formData.get('id') as string
   const supabase = await createClient()
+  
+  const { data: exp } = await supabase.from('experience').select('company_logo').eq('id', id).single()
+
   await supabase.from('experience').delete().eq('id', id)
+  
+  if (exp?.company_logo) {
+    await deleteStorageFile(exp.company_logo)
+  }
+
   revalidatePath('/')
   revalidatePath('/admin/experience')
+  
+  const cookieStore = await cookies()
+  cookieStore.set('flash-toast', 'Experience deleted successfully!', { path: '/', httpOnly: false })
 }
 
 export async function saveExperience(formData: FormData) {
@@ -25,7 +38,8 @@ export async function saveExperience(formData: FormData) {
   const display_order = parseInt(formData.get('display_order') as string) || 0
   
   const file = formData.get('image') as File | null
-  let company_logo = formData.get('existing_image_url') as string | undefined
+  const existing_image_url = formData.get('existing_image_url') as string | undefined
+  let company_logo = existing_image_url
 
   if (file && file.size > 0) {
     const fileExt = file.name.split('.').pop()
@@ -40,6 +54,10 @@ export async function saveExperience(formData: FormData) {
         .from('portfolio-images')
         .getPublicUrl(`experience/${fileName}`)
       company_logo = publicUrl
+
+      if (existing_image_url) {
+        await deleteStorageFile(existing_image_url)
+      }
     }
   }
 
@@ -62,5 +80,8 @@ export async function saveExperience(formData: FormData) {
 
   revalidatePath('/')
   revalidatePath('/admin/experience')
+  
+  const cookieStore = await cookies()
+  cookieStore.set('flash-toast', 'Experience saved successfully!', { path: '/', httpOnly: false })
   redirect('/admin/experience')
 }

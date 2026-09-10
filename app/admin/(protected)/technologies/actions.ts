@@ -2,14 +2,19 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export async function deleteTechnology(formData: FormData) {
   const id = formData.get('id') as string
   const supabase = await createClient()
   await supabase.from('technologies').delete().eq('id', id)
+  
   revalidatePath('/')
   revalidatePath('/admin/technologies')
+  
+  const cookieStore = await cookies()
+  cookieStore.set('flash-toast', 'Technology deleted successfully!', { path: '/', httpOnly: false })
 }
 
 export async function saveTechnology(formData: FormData) {
@@ -38,5 +43,8 @@ export async function saveTechnology(formData: FormData) {
 
   revalidatePath('/')
   revalidatePath('/admin/technologies')
+  
+  const cookieStore = await cookies()
+  cookieStore.set('flash-toast', 'Technology saved successfully!', { path: '/', httpOnly: false })
   redirect('/admin/technologies')
 }

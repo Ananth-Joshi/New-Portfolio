@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { deleteStorageFile } from '@/lib/storage-helper'
 
@@ -9,7 +10,6 @@ export async function deleteProject(formData: FormData) {
   const id = formData.get('id') as string
   const supabase = await createClient()
 
-  // First fetch the project to get the image_url
   const { data: project } = await supabase.from('projects').select('image_url').eq('id', id).single()
 
   await supabase.from('projects').delete().eq('id', id)
@@ -20,6 +20,8 @@ export async function deleteProject(formData: FormData) {
 
   revalidatePath('/')
   revalidatePath('/admin/projects')
+  const cookieStore = await cookies()
+  cookieStore.set('flash-toast', 'Project deleted successfully!', { path: '/', httpOnly: false })
 }
 
 export async function saveProject(formData: FormData) {
@@ -81,5 +83,7 @@ export async function saveProject(formData: FormData) {
 
   revalidatePath('/')
   revalidatePath('/admin/projects')
+  const cookieStore = await cookies()
+  cookieStore.set('flash-toast', 'Project saved successfully!', { path: '/', httpOnly: false })
   redirect('/admin/projects')
 }

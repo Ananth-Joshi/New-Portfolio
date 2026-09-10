@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { deleteStorageFile } from '@/lib/storage-helper'
 
@@ -19,6 +20,8 @@ export async function deleteCertificate(formData: FormData) {
 
   revalidatePath('/')
   revalidatePath('/admin/certificates')
+  const cookieStore = await cookies()
+  cookieStore.set('flash-toast', 'Certificate deleted successfully!', { path: '/', httpOnly: false })
 }
 
 export async function saveCertificate(formData: FormData) {
@@ -74,5 +77,7 @@ export async function saveCertificate(formData: FormData) {
 
   revalidatePath('/')
   revalidatePath('/admin/certificates')
+  const cookieStore = await cookies()
+  cookieStore.set('flash-toast', 'Certificate saved successfully!', { path: '/', httpOnly: false })
   redirect('/admin/certificates')
 }

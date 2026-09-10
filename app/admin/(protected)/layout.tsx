@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
+import { cookies } from 'next/headers'
+import { ToastProvider } from '@/components/ToastProvider'
 import { 
   LayoutDashboard, 
   MonitorPlay, 
@@ -20,8 +22,13 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     redirect('/admin/login')
   }
 
+  const cookieStore = await cookies()
+  const flashToast = cookieStore.get('flash-toast')?.value
+
   return (
     <div className="h-screen overflow-hidden bg-zinc-950 text-zinc-300 font-sans flex selection:bg-blue-500/30">
+      <ToastProvider message={flashToast} />
+      
       {/* Sidebar */}
       <aside className="w-64 bg-zinc-900 border-r border-zinc-800 hidden md:flex flex-col shadow-xl z-10 relative">
         <div className="p-6 border-b border-zinc-800/60 bg-zinc-950/20">
@@ -84,6 +91,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               <p className="text-xs text-zinc-500 truncate">Administrator</p>
             </div>
           </div>
+
           <form action="/auth/signout" method="post">
             <button type="submit" className="flex items-center gap-3 w-full px-3 py-2 text-zinc-400 hover:text-white hover:bg-red-500/10 hover:text-red-400 rounded-lg transition-all group text-sm font-medium">
               <LogOut className="w-4 h-4" />

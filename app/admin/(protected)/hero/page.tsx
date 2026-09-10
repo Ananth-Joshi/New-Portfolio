@@ -79,7 +79,7 @@ export default async function HeroAdmin() {
 
         <button 
           type="submit" 
-          className="px-4 py-2 bg-white text-zinc-950 font-medium rounded-md hover:bg-zinc-200 transition-colors"
+          className="px-4 py-2 bg-white text-zinc-950 font-medium rounded-md hover:bg-zinc-200 transition-colors cursor-pointer"
         >
           Save Changes
         </button>

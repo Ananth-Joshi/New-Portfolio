@@ -56,7 +56,7 @@ export default function NewProject() {
           </div>
         </div>
 
-        <button type="submit" className="px-4 py-2 bg-white text-zinc-950 font-medium rounded-md hover:bg-zinc-200 transition-colors">
+        <button type="submit" className="px-4 py-2 bg-white text-zinc-950 font-medium rounded-md hover:bg-zinc-200 transition-colors cursor-pointer">
           Save Project
         </button>
       </form>

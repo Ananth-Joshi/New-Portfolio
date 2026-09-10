@@ -71,7 +71,7 @@ export default async function EditProject({ params }: { params: Promise<{ id: st
           </div>
         </div>
 
-        <button type="submit" className="px-4 py-2 bg-white text-zinc-950 font-medium rounded-md hover:bg-zinc-200 transition-colors">
+        <button type="submit" className="px-4 py-2 bg-white text-zinc-950 font-medium rounded-md hover:bg-zinc-200 transition-colors cursor-pointer">
           Save Changes
         </button>
       </form>

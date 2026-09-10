@@ -52,7 +52,7 @@ export default async function AdminDashboard() {
           </div>
         </div>
 
-        <button type="submit" className="flex items-center gap-2 px-5 py-2.5 bg-white text-zinc-950 font-medium rounded-lg hover:bg-zinc-200 transition-colors shadow-sm">
+        <button type="submit" className="flex items-center cursor-pointer gap-2 px-5 py-2.5 bg-white text-zinc-950 font-medium rounded-lg hover:bg-zinc-200 transition-colors shadow-sm">
           <Save className="w-4 h-4" />
           Save Settings
         </button>

@@ -18,7 +18,7 @@ import { certifications } from '@/data/certifications';
 export default async function Home() {
   let hero, settings, projects, experience, technologies, certificates, about;
 
-  const isSupabaseConfigured = process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const isSupabaseConfigured = process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
   try {
     if (!isSupabaseConfigured) {

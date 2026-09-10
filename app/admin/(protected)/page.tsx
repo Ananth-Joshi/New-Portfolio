@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { updateSettings } from './actions'
 import { Settings, Save } from 'lucide-react'
+import { SubmitButton } from '@/components/SubmitButton'
 
 export default async function AdminDashboard() {
   const supabase = await createClient()
@@ -52,10 +53,10 @@ export default async function AdminDashboard() {
           </div>
         </div>
 
-        <button type="submit" className="flex items-center cursor-pointer gap-2 px-5 py-2.5 bg-white text-zinc-950 font-medium rounded-lg hover:bg-zinc-200 transition-colors shadow-sm">
+        <SubmitButton className="flex items-center gap-2 px-5 py-2.5 bg-white text-zinc-950 font-medium rounded-lg hover:bg-zinc-200 transition-colors shadow-sm">
           <Save className="w-4 h-4" />
           Save Settings
-        </button>
+        </SubmitButton>
       </form>
     </div>
   )

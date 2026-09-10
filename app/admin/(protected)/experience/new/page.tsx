@@ -1,5 +1,7 @@
+import { SubmitButton } from '@/components/SubmitButton'
 import { saveExperience } from '../actions'
 import Link from 'next/link'
+import { Save } from 'lucide-react'
 
 export default function NewExperience() {
   return (
@@ -53,9 +55,10 @@ export default function NewExperience() {
           </div>
         </div>
 
-        <button type="submit" className="px-4 py-2 bg-white text-zinc-950 font-medium rounded-md hover:bg-zinc-200 transition-colors cursor-pointer">
+        <SubmitButton className="flex items-center gap-2 px-5 py-2.5 bg-white text-zinc-950 font-medium rounded-lg hover:bg-zinc-200 transition-colors shadow-sm">
+          <Save className="w-4 h-4" />
           Save Experience
-        </button>
+        </SubmitButton>
       </form>
     </div>
   )

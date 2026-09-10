@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import { saveExperience } from '../actions'
 import Link from 'next/link'
+import { SubmitButton } from '@/components/SubmitButton'
+import { Save } from 'lucide-react'
 
 export default async function EditExperience({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -68,9 +70,10 @@ export default async function EditExperience({ params }: { params: Promise<{ id:
           </div>
         </div>
 
-        <button type="submit" className="px-4 py-2 bg-white text-zinc-950 font-medium rounded-md hover:bg-zinc-200 transition-colors cursor-pointer">
+        <SubmitButton className="flex items-center gap-2 px-5 py-2.5 bg-white text-zinc-950 font-medium rounded-lg hover:bg-zinc-200 transition-colors shadow-sm">
+          <Save className="w-4 h-4" />
           Save Changes
-        </button>
+        </SubmitButton>
       </form>
     </div>
   )

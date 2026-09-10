@@ -1,6 +1,8 @@
 import { saveTechnology } from '../actions'
 import Link from 'next/link'
 import IconPicker from '../icon-picker'
+import { SubmitButton } from '@/components/SubmitButton'
+import { Save } from 'lucide-react'
 
 export default function NewTechnology() {
   return (
@@ -37,9 +39,10 @@ export default function NewTechnology() {
           </div>
         </div>
 
-        <button type="submit" className="px-4 py-2 bg-white text-zinc-950 font-medium rounded-md hover:bg-zinc-200 transition-colors shadow-sm cursor-pointer">
+        <SubmitButton className="flex items-center gap-2 px-5 py-2.5 bg-white text-zinc-950 font-medium rounded-lg hover:bg-zinc-200 transition-colors shadow-sm">
+          <Save className="w-4 h-4" />
           Save Technology
-        </button>
+        </SubmitButton>
       </form>
     </div>
   )

@@ -8,6 +8,7 @@ import CertificationsSection from '@/components/CertificationsSection';
 import AboutSection from '@/components/AboutSection';
 import ContactSection from '@/components/ContactSection';
 import { createClient } from '@/lib/supabase/server';
+import { getIconBySlug } from '@/lib/simple-icons-helper';
 
 // Import fallback data
 import { featuredProjects, otherProjects } from '@/data/projects';
@@ -17,14 +18,12 @@ import { certifications } from '@/data/certifications';
 
 export default async function Home() {
   let hero, settings, projects, experience, technologies, certificates, about;
-
   const isSupabaseConfigured = process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
   try {
     if (!isSupabaseConfigured) {
       throw new Error("Missing config");
     }
-
     const supabase = await createClient();
     
     // Fetch all data
@@ -47,7 +46,6 @@ export default async function Home() {
     certificates = certRes.data?.slice(0, settings?.home_certificates_count || 4) || [];
     
     about = aboutRes.data;
-
   } catch (e) {
     // If Supabase is not configured or fails, use the static data as a graceful fallback
     hero = undefined; // Hero component has fallback defaults
@@ -98,7 +96,7 @@ export default async function Home() {
           id: orderCounter,
           name: skill.name,
           category: category,
-          icon_name: 'Code', // fallback icon
+          icon_name: skill.name.toLowerCase().replace(/[^a-z0-9]/g, ''), // fallback slug
           show_on_home: true,
           display_order: orderCounter++
         });
@@ -116,6 +114,16 @@ export default async function Home() {
       display_order: i
     })).slice(0, 3);
   }
+
+  // Enrich technologies with simple-icons data
+  technologies = technologies?.map((tech: any) => {
+    const si = getIconBySlug(tech.icon_name);
+    return {
+      ...tech,
+      iconPath: si?.path || '',
+      iconHex: si?.hex || '888888'
+    }
+  }) || [];
 
   return (
     <>

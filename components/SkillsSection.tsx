@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
-import * as LucideIcons from 'lucide-react';
+import { Code } from 'lucide-react';
 
 export default function SkillsSection({ technologies = [] }: { technologies?: any[] }) {
   if (!technologies.length) return null;
@@ -44,17 +44,24 @@ export default function SkillsSection({ technologies = [] }: { technologies?: an
               
               <div className="flex flex-wrap gap-4">
                 {items.map((skill: any) => {
-                  // Attempt to find the lucide icon by name
-                  const IconComponent = skill.icon_name && (LucideIcons as any)[skill.icon_name] 
-                    ? (LucideIcons as any)[skill.icon_name] 
-                    : LucideIcons.Code; // Fallback icon
-
                   return (
                     <div 
                       key={skill.id} 
                       className="flex items-center gap-3 bg-white/5 border border-white/10 px-5 py-3 rounded-2xl hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:-translate-y-1 group"
                     >
-                      <IconComponent className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+                      {skill.iconPath ? (
+                        <svg 
+                          viewBox="0 0 24 24" 
+                          className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity" 
+                          fill={`#${skill.iconHex}`}
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d={skill.iconPath} />
+                        </svg>
+                      ) : (
+                        <Code className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+                      )}
+                      
                       <span className="font-medium text-white/80 group-hover:text-white transition-colors">{skill.name}</span>
                     </div>
                   )

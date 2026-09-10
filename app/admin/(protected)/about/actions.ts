@@ -15,5 +15,5 @@ export async function updateAbout(formData: FormData) {
   revalidatePath('/admin/about')
   
   const cookieStore = await cookies()
-  cookieStore.set('flash-toast', 'About section updated successfully!', { path: '/', httpOnly: false })
+  cookieStore.set('flash-toast', 'About section updated successfully!|'+ Date.now(), { path: '/', httpOnly: false })
 }

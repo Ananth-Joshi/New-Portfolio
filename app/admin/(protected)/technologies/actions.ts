@@ -14,7 +14,7 @@ export async function deleteTechnology(formData: FormData) {
   revalidatePath('/admin/technologies')
   
   const cookieStore = await cookies()
-  cookieStore.set('flash-toast', 'Technology deleted successfully!', { path: '/', httpOnly: false })
+  cookieStore.set('flash-toast', 'Technology deleted successfully!|'+ Date.now(), { path: '/', httpOnly: false })
 }
 
 export async function saveTechnology(formData: FormData) {
@@ -45,6 +45,6 @@ export async function saveTechnology(formData: FormData) {
   revalidatePath('/admin/technologies')
   
   const cookieStore = await cookies()
-  cookieStore.set('flash-toast', 'Technology saved successfully!', { path: '/', httpOnly: false })
+  cookieStore.set('flash-toast', 'Technology saved successfully!|'+ Date.now(), { path: '/', httpOnly: false })
   redirect('/admin/technologies')
 }

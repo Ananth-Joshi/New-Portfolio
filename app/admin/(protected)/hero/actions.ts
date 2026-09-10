@@ -72,7 +72,7 @@ export async function updateHero(formData: FormData) {
   await supabase.from('hero').update(updates).eq('id', 1)
 
   const cookieStore = await cookies()
-  cookieStore.set('flash-toast', 'Hero section updated successfully!', { path: '/', httpOnly: false })
+  cookieStore.set('flash-toast', 'Hero section updated successfully!|' + Date.now(), { path: '/', httpOnly: false })
   
   revalidatePath('/')
   revalidatePath('/admin/hero')

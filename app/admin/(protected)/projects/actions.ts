@@ -21,7 +21,7 @@ export async function deleteProject(formData: FormData) {
   revalidatePath('/')
   revalidatePath('/admin/projects')
   const cookieStore = await cookies()
-  cookieStore.set('flash-toast', 'Project deleted successfully!', { path: '/', httpOnly: false })
+  cookieStore.set('flash-toast', 'Project deleted successfully!|' + Date.now(), { path: '/', httpOnly: false })
 }
 
 export async function saveProject(formData: FormData) {
@@ -84,6 +84,6 @@ export async function saveProject(formData: FormData) {
   revalidatePath('/')
   revalidatePath('/admin/projects')
   const cookieStore = await cookies()
-  cookieStore.set('flash-toast', 'Project saved successfully!', { path: '/', httpOnly: false })
+  cookieStore.set('flash-toast', 'Project saved successfully!|' + Date.now(), { path: '/', httpOnly: false })
   redirect('/admin/projects')
 }

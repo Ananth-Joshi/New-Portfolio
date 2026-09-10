@@ -22,7 +22,7 @@ export async function deleteExperience(formData: FormData) {
   revalidatePath('/admin/experience')
   
   const cookieStore = await cookies()
-  cookieStore.set('flash-toast', 'Experience deleted successfully!', { path: '/', httpOnly: false })
+  cookieStore.set('flash-toast', 'Experience deleted successfully!|'+ Date.now(), { path: '/', httpOnly: false })
 }
 
 export async function saveExperience(formData: FormData) {
@@ -82,6 +82,6 @@ export async function saveExperience(formData: FormData) {
   revalidatePath('/admin/experience')
   
   const cookieStore = await cookies()
-  cookieStore.set('flash-toast', 'Experience saved successfully!', { path: '/', httpOnly: false })
+  cookieStore.set('flash-toast', 'Experience saved successfully!|'+ Date.now(), { path: '/', httpOnly: false })
   redirect('/admin/experience')
 }

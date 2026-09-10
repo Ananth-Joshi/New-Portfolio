@@ -21,7 +21,7 @@ export async function deleteCertificate(formData: FormData) {
   revalidatePath('/')
   revalidatePath('/admin/certificates')
   const cookieStore = await cookies()
-  cookieStore.set('flash-toast', 'Certificate deleted successfully!', { path: '/', httpOnly: false })
+  cookieStore.set('flash-toast', 'Certificate deleted successfully!|'+ Date.now(), { path: '/', httpOnly: false })
 }
 
 export async function saveCertificate(formData: FormData) {
@@ -78,6 +78,6 @@ export async function saveCertificate(formData: FormData) {
   revalidatePath('/')
   revalidatePath('/admin/certificates')
   const cookieStore = await cookies()
-  cookieStore.set('flash-toast', 'Certificate saved successfully!', { path: '/', httpOnly: false })
+  cookieStore.set('flash-toast', 'Certificate saved successfully!|'+ Date.now(), { path: '/', httpOnly: false })
   redirect('/admin/certificates')
 }

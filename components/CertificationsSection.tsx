@@ -44,7 +44,7 @@ export default function CertificationsSection({ certificates = [] }: { certifica
                       src={cert.image_url}
                       alt={cert.name}
                       fill
-                      className="object-cover"
+                      className="object-contain"
                       referrerPolicy="no-referrer"
                     />
                   ) : (

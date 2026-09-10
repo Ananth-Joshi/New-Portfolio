@@ -40,7 +40,7 @@ export default function AboutSection({ data }: { data?: any }) {
           >
             <div>
               <span className="block text-xs font-medium uppercase tracking-wider text-white/50 mb-1">Based in</span>
-              <span className="text-lg font-medium">San Francisco, CA</span>
+              <span className="text-lg font-medium">Mangalore, India</span>
             </div>
             <div>
               <span className="block text-xs font-medium uppercase tracking-wider text-white/50 mb-1">Focus</span>

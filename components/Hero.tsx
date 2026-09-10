@@ -12,7 +12,7 @@ export default function Hero({ data }: { data?: any }) {
   const resume_url = data?.resume_url || '/resume.pdf';
 
   return (
-    <section className="pt-32 pb-20 md:pt-48 md:pb-32 px-6 md:px-12 max-w-7xl mx-auto flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-24">
+    <section className="pt-32 pb-20 md:pt-48 md:pb-32 px-6 md:px-12 max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center lg:items-start gap-12 lg:gap-24">
       
       {/* Intro Text */}
       <div className="flex-1 w-full z-10">
@@ -85,7 +85,7 @@ export default function Hero({ data }: { data?: any }) {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
           >
-            EST. 2019
+            EST. 2003
           </motion.div>
           <motion.div 
             className="absolute bottom-[20%] left-[5%] bg-foreground text-background px-4 py-2 rounded-full shadow-sm text-xs font-medium tracking-wider"

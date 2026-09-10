@@ -41,7 +41,7 @@ export default function ExperienceSection({ experiences = [] }: { experiences?: 
                   <h3 className="text-2xl font-medium">{exp.company}</h3>
                 </div>
                 <span className="text-accent-green font-medium mb-6">{exp.role}</span>
-                <p className="text-white/70 text-lg leading-relaxed max-w-2xl">
+                <p className="text-white/70 text-lg whitespace-pre-line leading-relaxed max-w-2xl">
                   {exp.description}
                 </p>
               </div>

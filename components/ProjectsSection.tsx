@@ -42,7 +42,7 @@ export default function ProjectsSection({ projects = [] }: { projects?: any[] })
                         src={project.image_url}
                         alt={project.title}
                         fill
-                        className="object-cover"
+                        className="object-contain"
                         referrerPolicy="no-referrer"
                       />
                     )}

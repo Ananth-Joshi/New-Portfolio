@@ -27,19 +27,19 @@ export default function ContactSection() {
 
         <div className="flex flex-col sm:flex-row gap-6 relative z-10">
           <a 
-            href="mailto:hello@example.com" 
+            href="mailto:ananthj82@gmail.com" 
             className="px-8 py-4 bg-background text-foreground font-medium rounded-full hover:scale-105 transition-transform shadow-lg"
           >
             Email me
           </a>
           <a 
-            href="#" 
+            href="https://www.linkedin.com/in/ananth-a-joshi" 
             className="px-8 py-4 border border-background/20 font-medium rounded-full hover:border-background/40 transition-colors"
           >
             LinkedIn
           </a>
           <a 
-            href="#" 
+            href="https://github.com/Ananth-Joshi" 
             className="px-8 py-4 border border-background/20 font-medium rounded-full hover:border-background/40 transition-colors"
           >
             GitHub

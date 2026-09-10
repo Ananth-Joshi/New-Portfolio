@@ -3,11 +3,21 @@
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { deleteStorageFile } from '@/lib/storage-helper'
 
 export async function deleteProject(formData: FormData) {
   const id = formData.get('id') as string
   const supabase = await createClient()
+
+  // First fetch the project to get the image_url
+  const { data: project } = await supabase.from('projects').select('image_url').eq('id', id).single()
+
   await supabase.from('projects').delete().eq('id', id)
+  
+  if (project?.image_url) {
+    await deleteStorageFile(project.image_url)
+  }
+
   revalidatePath('/')
   revalidatePath('/admin/projects')
 }
@@ -28,7 +38,8 @@ export async function saveProject(formData: FormData) {
   const technologies = technologiesStr.split(',').map(t => t.trim()).filter(t => t)
   
   const file = formData.get('image') as File | null
-  let image_url = formData.get('existing_image_url') as string | undefined
+  const existing_image_url = formData.get('existing_image_url') as string | undefined
+  let image_url = existing_image_url
 
   if (file && file.size > 0) {
     const fileExt = file.name.split('.').pop()
@@ -43,6 +54,10 @@ export async function saveProject(formData: FormData) {
         .from('portfolio-images')
         .getPublicUrl(`projects/${fileName}`)
       image_url = publicUrl
+
+      if (existing_image_url) {
+        await deleteStorageFile(existing_image_url)
+      }
     }
   }
 

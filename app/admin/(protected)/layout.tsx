@@ -21,7 +21,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-300 font-sans flex selection:bg-blue-500/30">
+    <div className="h-screen overflow-hidden bg-zinc-950 text-zinc-300 font-sans flex selection:bg-blue-500/30">
       {/* Sidebar */}
       <aside className="w-64 bg-zinc-900 border-r border-zinc-800 hidden md:flex flex-col shadow-xl z-10 relative">
         <div className="p-6 border-b border-zinc-800/60 bg-zinc-950/20">

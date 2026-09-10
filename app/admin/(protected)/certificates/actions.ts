@@ -3,11 +3,20 @@
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { deleteStorageFile } from '@/lib/storage-helper'
 
 export async function deleteCertificate(formData: FormData) {
   const id = formData.get('id') as string
   const supabase = await createClient()
+
+  const { data: cert } = await supabase.from('certificates').select('image_url').eq('id', id).single()
+
   await supabase.from('certificates').delete().eq('id', id)
+  
+  if (cert?.image_url) {
+    await deleteStorageFile(cert.image_url)
+  }
+
   revalidatePath('/')
   revalidatePath('/admin/certificates')
 }
@@ -24,7 +33,8 @@ export async function saveCertificate(formData: FormData) {
   const display_order = parseInt(formData.get('display_order') as string) || 0
   
   const file = formData.get('image') as File | null
-  let image_url = formData.get('existing_image_url') as string | undefined
+  const existing_image_url = formData.get('existing_image_url') as string | undefined
+  let image_url = existing_image_url
 
   if (file && file.size > 0) {
     const fileExt = file.name.split('.').pop()
@@ -39,6 +49,10 @@ export async function saveCertificate(formData: FormData) {
         .from('portfolio-images')
         .getPublicUrl(`certificates/${fileName}`)
       image_url = publicUrl
+
+      if (existing_image_url) {
+        await deleteStorageFile(existing_image_url)
+      }
     }
   }
 

@@ -127,7 +127,7 @@ export default async function Home() {
 
   return (
     <>
-      <Navbar />
+      <Navbar data={hero}/>
       <main className="min-h-screen">
         <Hero data={hero} />
         <ProjectsSection projects={projects} />

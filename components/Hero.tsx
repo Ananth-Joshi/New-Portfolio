@@ -23,9 +23,9 @@ export default function Hero({ data }: { data?: any }) {
         >
           <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none mb-6">
             Hi, I&apos;m <br className="hidden md:block"/> 
-            <span className="text-accent-orange italic">{name}</span>
+            <span className="text-accent-orange italic">{name}</span>,
             <br />
-            {role}
+            A {role}
           </h1>
           <p className="text-lg md:text-xl text-white/70 max-w-md mb-10 leading-relaxed">
             {description}

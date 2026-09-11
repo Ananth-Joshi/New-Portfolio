@@ -110,7 +110,7 @@ export function Sidebar({ email }: { email: string }) {
           </div>
 
           <form action="/auth/signout" method="post">
-            <button type="submit" className="flex items-center gap-3 w-full px-3 py-2 text-zinc-400 hover:text-white hover:bg-red-500/10 hover:text-red-400 rounded-lg transition-all group text-sm font-medium">
+            <button type="submit" className="flex items-center gap-3 w-full px-3 py-2 text-zinc-400 hover:text-white hover:bg-red-500/10 cursor-pointer rounded-lg transition-all group text-sm font-medium">
               <LogOut className="w-4 h-4" />
               Sign Out
             </button>

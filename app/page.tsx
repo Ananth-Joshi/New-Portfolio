@@ -127,7 +127,7 @@ export default async function Home() {
 
   return (
     <>
-      <Navbar data={hero}/>
+      <Navbar resumeUrl={hero?.resume_url || '/resume.pdf'} />
       <main className="min-h-screen">
         <Hero data={hero} />
         <ProjectsSection projects={projects} />

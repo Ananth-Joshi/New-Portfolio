@@ -13,10 +13,9 @@ const navLinks = [
   { name: 'About', href: '/#about' },
 ];
 
-export default function Navbar({ data }: { data?: any }) {
+export default function Navbar({ resumeUrl }: { resumeUrl: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const resume_url = data.resume_url || '/resume.pdf';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,7 +48,7 @@ export default function Navbar({ data }: { data?: any }) {
             ))}
           </ul>
           <a 
-            href={resume_url} 
+            href={resumeUrl} 
             className="text-sm font-medium px-5 py-2.5 bg-foreground text-background rounded-full hover:bg-accent-blue transition-colors flex items-center gap-2 group"
           >
             Resume
@@ -86,7 +85,7 @@ export default function Navbar({ data }: { data?: any }) {
               </Link>
             ))}
             <a 
-              href="/resume.pdf" 
+              href={resumeUrl}
               className="text-lg font-medium px-5 py-3 bg-foreground text-background text-center rounded-full flex justify-center items-center gap-2"
             >
               Resume

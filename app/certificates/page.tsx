@@ -2,11 +2,21 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { certifications } from '@/data/certifications';
 import Image from 'next/image';
+import { createClient } from '@/lib/supabase/server';
 
-export default function CertificatesPage() {
+export default async function CertificatesPage() {
+  
+  const supabase = await createClient();
+
+  const { data: hero } = await supabase
+    .from('hero')
+    .select('resume_url')
+    .eq('id', 1)
+    .single();
+
   return (
     <>
-      <Navbar />
+      <Navbar resumeUrl={hero?.resume_url || '/resume.pdf'} />
       <main className="min-h-screen pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="mb-20 max-w-2xl">
           <h1 className="font-serif text-5xl md:text-7xl tracking-tight mb-6">Certificate Gallery</h1>

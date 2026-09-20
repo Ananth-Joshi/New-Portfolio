@@ -140,7 +140,7 @@ export default async function LoginPage() {
 
               <button
                 type="submit"
-                className="group flex w-full items-center justify-center gap-2 rounded-lg bg-white px-4 py-2.5 font-medium text-zinc-950 transition-all hover:bg-zinc-200 active:scale-[0.98]"
+                className="group flex w-full items-center justify-center gap-2 cursor-pointer rounded-lg bg-white px-4 py-2.5 font-medium text-zinc-950 transition-all hover:bg-zinc-200 active:scale-[0.98]"
               >
                 Sign In
                 <svg

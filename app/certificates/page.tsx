@@ -14,15 +14,28 @@ export default async function CertificatesPage() {
     .single();
 
   const { data: certificates } = await supabase
-    .from('certifications')
+    .from('certificates')
     .select('*')
-    .order('date', { ascending: false });
+    .order('display_order', { ascending: true });
 
   return (
     <>
       <Navbar resumeUrl={hero?.resume_url || '/resume.pdf'} />
 
       <main className="min-h-screen pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto">
+
+        {/* Back to Homepage */}
+        <div className="mb-12">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 font-medium border-b border-foreground pb-1 hover:text-accent-orange hover:border-accent-orange transition-colors group"
+          >
+            <span className="group-hover:-translate-x-1 transition-transform inline-block">
+              ←
+            </span>
+            Back to homepage
+          </Link>
+        </div>
 
         {/* Header */}
         <div className="mb-20 max-w-2xl">

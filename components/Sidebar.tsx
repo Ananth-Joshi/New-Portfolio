@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { ConfirmDialog } from '@/components/ConfirmDialog'
 import {
   LayoutDashboard,
   MonitorPlay,
@@ -18,6 +19,8 @@ import {
 
 export function Sidebar({ email }: { email: string }) {
   const [isOpen, setIsOpen] = useState(false)
+  const [showSignOutModal, setShowSignOutModal] = useState(false)
+  const [isSigningOut, setIsSigningOut] = useState(false)
   const pathname = usePathname()
 
   const toggleSidebar = () => setIsOpen(!isOpen)
@@ -190,19 +193,49 @@ export function Sidebar({ email }: { email: string }) {
             </div>
           </div>
 
-          <form action="/auth/signout" method="post">
-            <button
-              type="submit"
-              className="flex items-center gap-3 w-full px-3 py-2 text-zinc-400 hover:text-white hover:bg-red-500/10 cursor-pointer rounded-lg transition-all group text-sm font-medium"
-            >
-              <LogOut className="w-4 h-4" />
-              Sign Out
-            </button>
-          </form>
+          <button
+            type="button"
+            onClick={() => setShowSignOutModal(true)}
+            className="flex items-center gap-3 w-full px-3 py-2 text-zinc-400 hover:text-white hover:bg-red-500/10 cursor-pointer rounded-lg transition-all group text-sm font-medium"
+          >
+            <LogOut className="w-4 h-4" />
+            Sign Out
+          </button>
 
         </div>
       </aside>
+
+      {/* Sign Out Confirmation */}
+      <ConfirmDialog
+        open={showSignOutModal}
+        onClose={() => setShowSignOutModal(false)}
+        busy={isSigningOut}
+        icon={<LogOut className="w-5 h-5" />}
+        title="Sign out?"
+        description={
+          <>
+            You&apos;ll be signed out of{' '}
+            <span className="text-zinc-300 font-medium break-all">{email}</span>{' '}
+            and returned to the login page.
+          </>
+        }
+      >
+        <form
+          action="/auth/signout"
+          method="post"
+          onSubmit={() => setIsSigningOut(true)}
+        >
+          <button
+            type="submit"
+            autoFocus
+            disabled={isSigningOut}
+            className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white bg-red-600 hover:bg-red-500 cursor-pointer transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+          >
+            <LogOut className="w-4 h-4" />
+            {isSigningOut ? 'Signing out…' : 'Sign Out'}
+          </button>
+        </form>
+      </ConfirmDialog>
     </>
   )
 }
-

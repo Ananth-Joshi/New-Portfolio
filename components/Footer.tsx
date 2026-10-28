@@ -12,7 +12,6 @@ export default function Footer() {
         <div className="flex gap-6">
           <a href="https://github.com/Ananth-Joshi" className="text-sm font-medium hover:text-accent-blue transition-colors">GitHub</a>
           <a href="https://www.linkedin.com/in/ananth-a-joshi" className="text-sm font-medium hover:text-accent-blue transition-colors">LinkedIn</a>
-          <a href="#" className="text-sm font-medium hover:text-accent-blue transition-colors">Twitter</a>
         </div>
       </div>
     </footer>
